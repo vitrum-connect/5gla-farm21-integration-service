@@ -14,7 +14,7 @@
 
     <groupId>de.app.5gla</groupId>
     <artifactId>farm21-integration-service</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -123,7 +123,7 @@
                 <configuration>
                     <mainClass>de.app.fivegla.Application</mainClass>
                     <jvmArguments>-Dspring.application.admin.enabled=true</jvmArguments>
-                    <finalName></finalName>
+                    <finalName>application</finalName>
                 </configuration>
             </plugin>
             <plugin>
