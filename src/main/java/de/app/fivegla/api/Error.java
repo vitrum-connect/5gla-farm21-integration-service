@@ -8,7 +8,8 @@ import lombok.Getter;
 @Getter
 public enum Error {
 
-    INVALID_REQUEST(errorOf(1));
+    INVALID_REQUEST(errorOf(1)), FARM21_COULD_NOT_AUTHENTICATE(errorOf(2));
+
     private static String errorOf(int i) {
         return ERR_ + String.format("%05d", i);
     }
