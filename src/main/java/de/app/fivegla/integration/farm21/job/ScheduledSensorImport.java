@@ -7,7 +7,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 /**
- * Scheduled data import from Soil Scout API.
+ * Scheduled data import from Farm21 API.
  */
 @Slf4j
 @Service
@@ -27,7 +27,7 @@ public class ScheduledSensorImport {
      */
     @Scheduled(cron = "${app.scheduled.sensor-import.cron}}")
     public void run() {
-        log.info("Running scheduled sensor import from Soil Scout API");
+        log.info("Running scheduled sensor import from Farm21 API");
         var sensors = soilScoutSensorIntegrationService.findAll();
         log.info("Found {} sensors", sensors.size());
         sensors.forEach(fiwareIntegrationServiceWrapper::persist);

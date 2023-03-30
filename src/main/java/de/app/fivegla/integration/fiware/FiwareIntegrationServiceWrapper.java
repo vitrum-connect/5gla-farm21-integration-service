@@ -8,6 +8,7 @@ import de.app.fivegla.fiware.api.enums.DeviceCategoryValues;
 import de.app.fivegla.fiware.model.Device;
 import de.app.fivegla.fiware.model.DeviceCategory;
 import de.app.fivegla.integration.farm21.model.Sensor;
+import de.app.fivegla.integration.farm21.model.SensorData;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -39,6 +40,7 @@ public class FiwareIntegrationServiceWrapper {
 
     /**
      * Create a new Farm21 sensor in FIWARE.
+     *
      * @param sensor
      */
     public void persist(Sensor sensor) {
@@ -49,5 +51,20 @@ public class FiwareIntegrationServiceWrapper {
                         .build())
                 .build();
         deviceIntegrationService.persist(device);
+    }
+
+    /**
+     * Create Farm21 sensor data in FIWARE.
+     *
+     * @param sensor     the sensor
+     * @param sensorData the sensor data to create
+     */
+    public void persist(Sensor sensor, List<SensorData> sensorData) {
+        sensorData.forEach(sd -> persist(sensor, sd));
+    }
+
+    private void persist(Sensor sensor, SensorData sensorData) {
+        log.debug("Persisting sensor data for sensor: {}", sensor);
+        log.debug("Persisting sensor data: {}", sensorData);
     }
 }

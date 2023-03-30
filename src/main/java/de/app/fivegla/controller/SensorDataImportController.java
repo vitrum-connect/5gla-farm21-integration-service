@@ -1,5 +1,6 @@
 package de.app.fivegla.controller;
 
+import de.app.fivegla.integration.farm21.job.ScheduledSensorDataImport;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.context.annotation.Profile;
@@ -18,6 +19,12 @@ import org.springframework.web.bind.annotation.RestController;
 @Profile("manual-import-allowed")
 public class SensorDataImportController {
 
+    private final ScheduledSensorDataImport scheduledSensorDataImport;
+
+    public SensorDataImportController(ScheduledSensorDataImport scheduledSensorDataImport) {
+        this.scheduledSensorDataImport = scheduledSensorDataImport;
+    }
+
     /**
      * Run the import.
      */
@@ -31,7 +38,8 @@ public class SensorDataImportController {
     )
     @PostMapping(value = "/run", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> runImport() {
-        return ResponseEntity.badRequest().build();
+        scheduledSensorDataImport.run();
+        return ResponseEntity.ok().build();
     }
 
 }

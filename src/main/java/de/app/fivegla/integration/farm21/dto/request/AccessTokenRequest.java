@@ -4,7 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 /**
- * Soil scout token request.
+ * Token request.
  */
 @Getter
 @Builder

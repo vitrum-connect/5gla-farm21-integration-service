@@ -6,6 +6,9 @@ import lombok.Setter;
 
 import java.time.Instant;
 
+/**
+ * Sensor model.
+ */
 @Getter
 @Setter
 public class Sensor {
