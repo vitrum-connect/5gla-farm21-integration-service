@@ -4,6 +4,7 @@ import de.app.fivegla.api.Error;
 import de.app.fivegla.api.ErrorMessage;
 import de.app.fivegla.api.exceptions.BusinessException;
 import de.app.fivegla.integration.farm21.model.Sensor;
+import de.app.fivegla.integration.fiware.FiwareIntegrationServiceWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;

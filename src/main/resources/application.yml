@@ -3,13 +3,9 @@ app:
   sensors:
     farm21:
       url: https://app.farm21.tech/api/v2/public/
-      username: ${FARM21_USERNAME}
-      password: ${FARM21_PASSWORD}
       api-token: ${FARM21_API_TOKEN}
   scheduled:
     data-import:
-      cron: "0 0 0 * * *" # every day at midnight
-    sensor-import:
       cron: "0 0 0 * * *" # every day at midnight
 fiware:
   context-broker-url: ${CONTEXT_BROKER_URL}
