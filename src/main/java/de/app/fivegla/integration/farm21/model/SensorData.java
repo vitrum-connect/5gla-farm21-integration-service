@@ -5,9 +5,16 @@ package de.app.fivegla.integration.farm21.model;
  */
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.Instant;
 
+/**
+ * Sensor data model.
+ */
+@Getter
+@Setter
 public class SensorData {
 
     @JsonProperty("soil_moisture_10")
