@@ -18,6 +18,7 @@ logging:
     root: info
     de.app.fivegla: trace
     one.microstream: debug
+    org.springframework.web.client.RestTemplate: debug
 one:
   microstream:
     storage-directory: ${MICROSTREAM_STORAGE_DIRECTORY}
