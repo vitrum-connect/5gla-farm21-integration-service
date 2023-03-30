@@ -2,7 +2,9 @@ package de.app.fivegla.integration.farm21;
 
 import de.app.fivegla.api.Error;
 import de.app.fivegla.api.ErrorMessage;
+import de.app.fivegla.api.InstantFormat;
 import de.app.fivegla.api.exceptions.BusinessException;
+import de.app.fivegla.integration.farm21.dto.response.SensorDataResponse;
 import de.app.fivegla.integration.farm21.model.Sensor;
 import de.app.fivegla.integration.farm21.model.SensorData;
 import lombok.extern.slf4j.Slf4j;
@@ -16,12 +18,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.time.Instant;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Service to read the sensor data from the API.
@@ -86,14 +83,13 @@ public class SensorDataIntegrationService extends AbstractIntegrationService {
             var uriVariables = Map.of("id",
                     sensorId,
                     "since",
-                    formatInstant(since),
+                    InstantFormat.format(since),
                     "until",
-                    formatInstant(until));
+                    InstantFormat.format(until));
             log.debug("URI variables: {}", uriVariables);
-            var response = restTemplate.exchange(uri, HttpMethod.GET, httpEntity, String.class, uriVariables);
+            var response = restTemplate.exchange(uri, HttpMethod.GET, httpEntity, SensorDataResponse.class, uriVariables);
             if (response.getStatusCode().is2xxSuccessful()) {
-                //return List.of(Objects.requireNonNull(response.getBody()));
-                return Collections.emptyList();
+                return Objects.requireNonNull(response.getBody()).getSensorData();
             } else {
                 var errorMessage = ErrorMessage.builder().error(Error.FARM21_COULD_NOT_AUTHENTICATE).message("Could not fetch devices for Farm21 API.").build();
                 throw new BusinessException(errorMessage);
@@ -102,16 +98,6 @@ public class SensorDataIntegrationService extends AbstractIntegrationService {
             log.debug("Could not fetch sensor data for sensor {} from Farm21 API.", sensorId);
             log.error("Error: {}", e.getMessage());
             return Collections.emptyList();
-        }
-    }
-
-    private String formatInstant(Instant instant) {
-        if (instant == null) {
-            return null;
-        } else {
-            var formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-                    .withZone(ZoneId.systemDefault());
-            return formatter.format(instant);
         }
     }
 }
